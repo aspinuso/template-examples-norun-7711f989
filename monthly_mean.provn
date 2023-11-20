@@ -1,0 +1,37 @@
+document
+  prefix vargen <http://openprovenance.org/vargen#>
+  prefix pre_0 <http://www.w3.org/2001/XMLSchema>
+  prefix c3s <http://linktovoc.org>
+  prefix provone <http://http://purl.dataone.org/provone/2015/01/15/ontology#>
+  prefix vcard <http://www.w3.org/2006/vcard/ns#>
+  prefix var <http://openprovenance.org/var#>
+  prefix tmpl <http://openprovenance.org/tmpl#>
+  prefix dcterms <http://purl.org/dc/terms/>
+  
+  bundle vargen:MonthlyMeanToolExecution
+    prefix vargen <http://openprovenance.org/vargen#>
+    prefix provone <http://purl.dataone.org/provone/2015/01/15/ontology#>
+    prefix mc <http://www.metaclip.org/datasource/datasource.owl#>
+    prefix c3s <http://linktovoc.org>
+    prefix vcard <http://www.w3.org/2006/vcard/ns#>
+    prefix var <http://openprovenance.org/var#>
+    prefix tmpl <http://openprovenance.org/tmpl#>
+    prefix dcterms <http://purl.org/dc/terms/>
+    
+    used(vargen:toolexec, var:input, -)
+    wasDerivedFrom(vargen:output, var:input, -, -, -, [c3s:baseint='var:baseint', prov:type='c3s:Mean', c3s:keep_attrsbool='var:keepatt'])
+    wasAssociatedWith(vargen:toolexec, var:toolbox, var:tool)
+    wasStartedBy(vargen:start; vargen:toolexec, var:user, -, -, [tmpl:time='var:startedAt', c3s:baseint='var:baseint', c3s:keep_attrsbool='var:keepatt'])
+    activity(vargen:toolexec, -, -, [tmpl:startTime='var:executionStartTime', prov:type='provone:Execution', tmpl:endTime='var:executionEndTime'])
+    wasGeneratedBy(vargen:output, vargen:toolexec, -)
+    agent(var:user, [vcard:uid='var:name', prov:type='prov:Person'])
+    agent(var:toolbox, [prov:atLocation='var:accessUrl', c3s:version='var:version', prov:type='prov:SoftwareAgent'])
+    hadMember(var:tool, vargen:libs)
+    hadMember(vargen:libs, var:lib)
+    entity(var:tool, [prov:atLocation='var:accessUrlDocumentation', prov:type='c3s:Mean', prov:type='provone:Program'])
+    entity(vargen:output, [prov:generatedAt='var:generatedAt', prov:atLocation='var:accessUrlOut', prov:type='provone:Data'])
+    entity(var:lib, [c3s:version='var:libversion', prov:type='var:dependencyConcept', c3s:libname='var:libname'])
+    entity(var:input, [prov:atLocation='var:accessUrlInp', prov:type='provone:Data', c3s:inputName='c3s:source'])
+    entity(vargen:libs, [prov:type='c3s:LibCollection'])
+  endBundle
+endDocument

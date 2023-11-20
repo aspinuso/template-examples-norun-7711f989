@@ -1,0 +1,251 @@
+
+{
+
+    "original_request": {
+        "request_id": "ca335e3d-0f32-4083-ac7e-c2262b92b341",
+        "top_request_id": "ca335e3d-0f32-4083-ac7e-c2262b92b341",
+        "method": "tool.toolbox.orchestrator.run_workflow",
+        "specific_json": {
+            "code": "import cdstoolbox as ct\n\nlayout = {\n    'input_ncols': 3,\n    'output_align': 'bottom'\n}\n\nvariables = {\n    'Near-Surface Air Temperature': '2m_temperature',\n    'Eastward Near-Surface Wind': '10m_u_component_of_wind',\n    'Westward Near-Surface Wind': '10m_v_component_of_wind',\n    'Sea Level Pressure': 'mean_sea_level_pressure',\n    'Sea Surface Temperature': 'sea_surface_temperature',\n}\n\n\n@ct.application(title='Extract a time series and plot graph', layout=layout)\n@ct.input.dropdown('var', label='Variable', values=variables.keys(), description='Sample variables')\n@ct.input.text('lon', label='Longitude', type=float, default=75., description='Decimal degrees')\n@ct.input.text('lat', label='Latitude', type=float, default=43., description='Decimal degrees')\n@ct.output.livefigure()\ndef plot_time_series(var, lon, lat):\n    \"\"\"\n    Application main steps:\n\n    - set the application layout with 3 columns for the input and output at the bottom\n    - retrieve a variable over a defined time range\n    - select a location, defined by longitude and latitude coordinates\n    - compute the daily average\n    - show the result as a timeseries on an interactive chart\n\n    \"\"\"\n\n    # Time range\n    data = ct.catalogue.retrieve(\n        'reanalysis-era5-single-levels',\n        {\n            'variable': variables[var],\n            'grid': ['3', '3'],\n            'product_type': 'reanalysis',\n            'year': [\n                '2008', '2009', '2010',\n                '2011', '2012', '2013',\n                '2014', '2015', '2016',\n                '2017'\n            ],\n            'month': [\n                '01', '02', '03', '04', '05', '06',\n                '07', '08', '09', '10', '11', '12'\n            ],\n            'day': [\n                '01', '02', '03', '04', '05', '06',\n                '07', '08', '09', '10', '11', '12',\n                '13', '14', '15', '16', '17', '18',\n                '19', '20', '21', '22', '23', '24',\n                '25', '26', '27', '28', '29', '30',\n                '31'\n            ],\n            'time': ['00:00', '06:00', '12:00', '18:00'],\n        }\n    )\n\n    # Location selection\n\n    # Extract the closest point to selected lon/lat (no interpolation).\n    # If wrong number is set for latitude, the closest available one is chosen:\n    # e.g. if lat = 4000 -> lat = 90.\n    # If wrong number is set for longitude, first a wrap in [-180, 180] is made,\n    # then the closest one present is chosen:\n    # e.g. if lon = 200 -> lat = -160.\n    data_sel = ct.geo.extract_point(data, lon=lon, lat=lat)\n\n    # Daily mean on selection\n    data_daily = ct.climate.daily_mean(data_sel)\n\n    fig = ct.chart.line(data_daily)\n\n    return fig\n",
+            "kwargs": {
+                "lat": 43,
+                "lon": 75,
+                "var": "Near-Surface Air Temperature"
+            },
+            "workflow_name": "plot_time_series"
+        },
+        "result": "[{\"contentLength\":124489,\"contentType\":\"application/vnd.plotly.v1+json\",\"location\":\"http://136.156.133.25/cache-compute-0008/cache/data3/474131c7-5aff-420a-85fe-793ecd74a255.plotly\",\"logging\":\"\",\"resultType\":\"url\"}]",
+        "state": "completed",
+        "specific_metadata_json": {
+            "app_scope": "private",
+            "project": "03-extract-time-series-and-plot-graph",
+            "realm": "8721",
+            "top_request_origin": "gaia",
+            "version": "3d31749fbd433fdaf61aa1b45918778009be3084"
+        },
+        "result_provided_by": "8ba3ced8-0b2c-4ebb-a554-5674c0dccc16"
+    },
+    "cached_requests": [
+        {
+            "request_id": "8ba3ced8-0b2c-4ebb-a554-5674c0dccc16",
+            "top_request_id": "8ba3ced8-0b2c-4ebb-a554-5674c0dccc16",
+            "method": "tool.toolbox.orchestrator.run_workflow",
+            "specific_json": {
+                "code": "import cdstoolbox as ct\n\nlayout = {\n    'input_ncols': 3,\n    'output_align': 'bottom'\n}\n\nvariables = {\n    'Near-Surface Air Temperature': '2m_temperature',\n    'Eastward Near-Surface Wind': '10m_u_component_of_wind',\n    'Westward Near-Surface Wind': '10m_v_component_of_wind',\n    'Sea Level Pressure': 'mean_sea_level_pressure',\n    'Sea Surface Temperature': 'sea_surface_temperature',\n}\n\n\n@ct.application(title='Extract a time series and plot graph', layout=layout)\n@ct.input.dropdown('var', label='Variable', values=variables.keys(), description='Sample variables')\n@ct.input.text('lon', label='Longitude', type=float, default=75., description='Decimal degrees')\n@ct.input.text('lat', label='Latitude', type=float, default=43., description='Decimal degrees')\n@ct.output.livefigure()\ndef plot_time_series(var, lon, lat):\n    \"\"\"\n    Application main steps:\n\n    - set the application layout with 3 columns for the input and output at the bottom\n    - retrieve a variable over a defined time range\n    - select a location, defined by longitude and latitude coordinates\n    - compute the daily average\n    - show the result as a timeseries on an interactive chart\n\n    \"\"\"\n\n    # Time range\n    data = ct.catalogue.retrieve(\n        'reanalysis-era5-single-levels',\n        {\n            'variable': variables[var],\n            'grid': ['3', '3'],\n            'product_type': 'reanalysis',\n            'year': [\n                '2008', '2009', '2010',\n                '2011', '2012', '2013',\n                '2014', '2015', '2016',\n                '2017'\n            ],\n            'month': [\n                '01', '02', '03', '04', '05', '06',\n                '07', '08', '09', '10', '11', '12'\n            ],\n            'day': [\n                '01', '02', '03', '04', '05', '06',\n                '07', '08', '09', '10', '11', '12',\n                '13', '14', '15', '16', '17', '18',\n                '19', '20', '21', '22', '23', '24',\n                '25', '26', '27', '28', '29', '30',\n                '31'\n            ],\n            'time': ['00:00', '06:00', '12:00', '18:00'],\n        }\n    )\n\n    # Location selection\n\n    # Extract the closest point to selected lon/lat (no interpolation).\n    # If wrong number is set for latitude, the closest available one is chosen:\n    # e.g. if lat = 4000 -> lat = 90.\n    # If wrong number is set for longitude, first a wrap in [-180, 180] is made,\n    # then the closest one present is chosen:\n    # e.g. if lon = 200 -> lat = -160.\n    data_sel = ct.geo.extract_point(data, lon=lon, lat=lat)\n\n    # Daily mean on selection\n    data_daily = ct.climate.daily_mean(data_sel)\n\n    fig = ct.chart.line(data_daily)\n\n    return fig\n",
+                "kwargs": {
+                    "lat": 43,
+                    "lon": 75,
+                    "var": "Near-Surface Air Temperature"
+                },
+                "workflow_name": "plot_time_series"
+            },
+            "result": "[{\"contentLength\":124489,\"contentType\":\"application/vnd.plotly.v1+json\",\"location\":\"http://136.156.133.25/cache-compute-0008/cache/data3/474131c7-5aff-420a-85fe-793ecd74a255.plotly\",\"logging\":\"\",\"resultType\":\"url\"}]",
+            "sent_to_rmq_at": "2020-05-11T15:00:51.93Z",
+            "state": "completed",
+            "specific_metadata_json": {
+                "app_scope": "private",
+                "project": "03-extract-time-series-and-plot-graph",
+                "realm": "26599",
+                "top_request_origin": "gaia",
+                "version": "8123a5edbf4c9332762e933eb966d816222f5bbf"
+            },
+            "children_requests": [
+                {
+                    "request_id": "65bdc8ef-635c-4ef6-bd41-91ebdc68b419",
+                    "parent_request_id": "8ba3ced8-0b2c-4ebb-a554-5674c0dccc16",
+                    "top_request_id": "8ba3ced8-0b2c-4ebb-a554-5674c0dccc16",
+                    "method": "cds.services.python_service",
+                    "specific_json": {
+                        "args": [
+                            {
+                                "contentLength": 63084,
+                                "contentType": "application/x-netcdf",
+                                "location": "http://136.156.132.110/cache-compute-0001/cache/data6/652e734d-4d10-4650-b7d3-c1bebb655a8f.nc",
+                                "resultType": "url"
+                            }
+                        ],
+                        "contentLength": 63084,
+                        "contentType": "application/x-netcdf",
+                        "kwargs": {
+                            "fullname": "cdsplot.cdsplotly.line"
+                        },
+                        "location": "http://136.156.132.110/cache-compute-0001/cache/data6/652e734d-4d10-4650-b7d3-c1bebb655a8f.nc",
+                        "resultType": "url"
+                    },
+                    "sent_to_rmq_at": "2020-05-11T15:01:18.623Z",
+                    "state": "completed",
+                    "specific_metadata_json": {
+                        "app_scope": "private",
+                        "project": "03-extract-time-series-and-plot-graph",
+                        "realm": "26599",
+                        "top_request_origin": "gaia",
+                        "version": "8123a5edbf4c9332762e933eb966d816222f5bbf"
+                    }
+                },
+                {
+                    "request_id": "12063d29-bef9-46da-9528-f66d50f7fe46",
+                    "parent_request_id": "8ba3ced8-0b2c-4ebb-a554-5674c0dccc16",
+                    "top_request_id": "8ba3ced8-0b2c-4ebb-a554-5674c0dccc16",
+                    "method": "cds.services.python_service",
+                    "specific_json": {
+                        "args": [
+                            {
+                                "contentLength": 194826,
+                                "contentType": "application/x-netcdf",
+                                "location": "http://136.156.133.25/cache-compute-0008/cache/data8/e5cb17a2-c049-4cac-9b3d-a2c85d5b46cf.nc",
+                                "resultType": "url"
+                            }
+                        ],
+                        "contentLength": 194826,
+                        "contentType": "application/x-netcdf",
+                        "kwargs": {
+                            "fullname": "cdstools.season.daily_mean"
+                        },
+                        "location": "http://136.156.133.25/cache-compute-0008/cache/data8/e5cb17a2-c049-4cac-9b3d-a2c85d5b46cf.nc",
+                        "resultType": "url"
+                    },
+                    "compute_host": "compute-0001",
+                    "sent_to_rmq_at": "2020-05-11T15:01:01.784Z",
+                    "state": "completed",
+                    "specific_metadata_json": {
+                        "app_scope": "private",
+                        "project": "03-extract-time-series-and-plot-graph",
+                        "realm": "26599",
+                        "top_request_origin": "gaia",
+                        "version": "8123a5edbf4c9332762e933eb966d816222f5bbf"
+                    }
+                },
+                {
+                    "request_id": "abd77718-c4cf-4f5e-bfba-0291a1ab532b",
+                    "parent_request_id": "8ba3ced8-0b2c-4ebb-a554-5674c0dccc16",
+                    "top_request_id": "8ba3ced8-0b2c-4ebb-a554-5674c0dccc16",
+                    "method": "cds.services.python_service",
+                    "specific_json": {
+                        "args": [
+                            {
+                                "contentLength": 427976239,
+                                "contentType": "application/x-netcdf",
+                                "location": "http://136.156.133.46/cache-compute-0015/cache/data6/cds.services.cdm_translate-1589185393.8862677-19295-13-b4f8139f-f64e-41ee-a9d2-2dee9b2e48d7_ERA5_REANALYSIS_air_temperature.nc",
+                                "resultType": "url"
+                            }
+                        ],
+                        "contentLength": 427976239,
+                        "contentType": "application/x-netcdf",
+                        "kwargs": {
+                            "fullname": "cdstools.lonlat.extract_point",
+                            "lat": 43,
+                            "lon": 75
+                        },
+                        "location": "http://136.156.133.46/cache-compute-0015/cache/data6/cds.services.cdm_translate-1589185393.8862677-19295-13-b4f8139f-f64e-41ee-a9d2-2dee9b2e48d7_ERA5_REANALYSIS_air_temperature.nc",
+                        "resultType": "url"
+                    },
+                    "sent_to_rmq_at": "2020-05-11T15:00:53.639Z",
+                    "state": "completed",
+                    "specific_metadata_json": {
+                        "app_scope": "private",
+                        "project": "03-extract-time-series-and-plot-graph",
+                        "realm": "26599",
+                        "top_request_origin": "gaia",
+                        "version": "8123a5edbf4c9332762e933eb966d816222f5bbf"
+                    }
+                },
+                {
+                    "request_id": "4dc9f7e9-85e5-4b48-824e-5e13fc6cb79c",
+                    "parent_request_id": "8ba3ced8-0b2c-4ebb-a554-5674c0dccc16",
+                    "top_request_id": "8ba3ced8-0b2c-4ebb-a554-5674c0dccc16",
+                    "method": "catalogue.retrieve",
+                    "specific_json": {
+                        "args": [
+                            "reanalysis-era5-single-levels",
+                            {
+                                "day": [
+                                    "01",
+                                    "02",
+                                    "03",
+                                    "04",
+                                    "05",
+                                    "06",
+                                    "07",
+                                    "08",
+                                    "09",
+                                    "10",
+                                    "11",
+                                    "12",
+                                    "13",
+                                    "14",
+                                    "15",
+                                    "16",
+                                    "17",
+                                    "18",
+                                    "19",
+                                    "20",
+                                    "21",
+                                    "22",
+                                    "23",
+                                    "24",
+                                    "25",
+                                    "26",
+                                    "27",
+                                    "28",
+                                    "29",
+                                    "30",
+                                    "31"
+                                ],
+                                "grid": [
+                                    "3",
+                                    "3"
+                                ],
+                                "month": [
+                                    "01",
+                                    "02",
+                                    "03",
+                                    "04",
+                                    "05",
+                                    "06",
+                                    "07",
+                                    "08",
+                                    "09",
+                                    "10",
+                                    "11",
+                                    "12"
+                                ],
+                                "product_type": "reanalysis",
+                                "time": [
+                                    "00:00",
+                                    "06:00",
+                                    "12:00",
+                                    "18:00"
+                                ],
+                                "variable": "2m_temperature",
+                                "year": [
+                                    "2008",
+                                    "2009",
+                                    "2010",
+                                    "2011",
+                                    "2012",
+                                    "2013",
+                                    "2014",
+                                    "2015",
+                                    "2016",
+                                    "2017"
+                                ]
+                            }
+                        ],
+                        "kwargs": { }
+                    },
+                    "state": "completed",
+                    "specific_metadata_json": {
+                        "app_scope": "private",
+                        "project": "03-extract-time-series-and-plot-graph",
+                        "realm": "26599",
+                        "top_request_origin": "gaia",
+                        "version": "8123a5edbf4c9332762e933eb966d816222f5bbf"
+                    },
+                    "result_provided_by": "1d246211-66cf-4d28-8b31-5d6955b2be62"
+                }
+            ]
+        }
+    ]
+
+}
+

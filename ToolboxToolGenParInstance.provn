@@ -1,0 +1,46 @@
+document
+  bundle uuid:d9d981b6-249c-4587-9df8-3992d3e5f3c7
+    prefix provone <http://purl.dataone.org/provone/2015/01/15/ontology#>
+    prefix s-prov <https://github.com/aspinuso/s-provenance/blob/master/resources/s-prov-o.owl>
+    prefix c3s <http://linktovoc.org/#>
+    prefix http <http:>
+    prefix uuid <urn:uuid:>
+    
+    entity(uuid:916ac937-eee5-47f3-be05-a417dcb1782d, [http://linktovoc.org/#pid="sddd", http://linktovoc.org/#worker="node4c3s", http://linktovoc.org/#cresource='http://linktovoc.org/#DIAS_BCN'])
+    entity(uuid:monyhly_trend0001, [http://www.w3.org/ns/prov#type='http://www.w3.org/ns/prov#Plan', http://www.w3.org/ns/prov#type='http://purl.dataone.org/provone/2015/01/15/ontology#Program', http://linktovoc.org/#version="v0.5", http://www.w3.org/ns/prov#atLocation="https://git.ecmwf.int/projects/CST/repos/cdstools/commits/7f4d184cf8f0638cedd4039a4293b8afb674f392#cdstools/season.py"])
+    entity(uuid:xarray20, [http://linktovoc.org/#version="v2.0", http://linktovoc.org/#libname="xarray"])
+    entity(http://linktovoc.org/#DIAS_BCN, [http://www.w3.org/ns/prov#type='s-prov:CResource', s-prov:mapping="K8S"])
+    entity(uuid:91991556, [http://www.w3.org/ns/prov#type='http://purl.dataone.org/provone/2015/01/15/ontology#Data', http://www.w3.org/ns/prov#atLocation="https://cds.data/91991556"])
+    entity(uuid:05688edb-1f29-4001-8171-3afb0e6d701f, [http://www.w3.org/ns/prov#type='http://linktovoc.org/#LibCollection'])
+    entity(uuid:par0002, [http://www.w3.org/ns/prov#type='http://linktovoc.org/#ToolParameter', http://linktovoc.org/#parvalue="True", http://linktovoc.org/#parkey="keep_attrsbool"])
+    entity(uuid:par0002, [http://www.w3.org/ns/prov#type='http://linktovoc.org/#ToolParameter', http://linktovoc.org/#parvalue="True", http://linktovoc.org/#parkey="keep_attrsbool"])
+    entity(uuid:numpy10, [http://linktovoc.org/#version="v1.0", http://linktovoc.org/#libname="numpy"])
+    entity(uuid:par0001, [http://www.w3.org/ns/prov#type='http://linktovoc.org/#ToolParameter', http://linktovoc.org/#parvalue="23", http://linktovoc.org/#parkey="baseint"])
+    entity(uuid:par0001, [http://www.w3.org/ns/prov#type='http://linktovoc.org/#ToolParameter', http://linktovoc.org/#parvalue="23", http://linktovoc.org/#parkey="baseint"])
+    used(uuid:8eb03a1c-8416-46ea-87e8-7fb8c94570ab, uuid:91991554, -)
+    used(uuid:8eb03a1c-8416-46ea-87e8-8439501830bc, uuid:par0002, -)
+    used(uuid:8eb03a1c-8416-46ea-87e8-8439501830bc, uuid:91991556, -)
+    used(uuid:8eb03a1c-8416-46ea-87e8-7fb8c94570ab, uuid:par0001, -)
+    used(uuid:8eb03a1c-8416-46ea-87e8-7fb8c94570ab, uuid:par0002, -)
+    used(uuid:8eb03a1c-8416-46ea-87e8-8439501830bc, uuid:par0001, -)
+    wasDerivedFrom(uuid:0253fee2-bd2b-453c-992b-c5902094eb52, uuid:91991554, -, -, -, [http://www.w3.org/ns/prov#type="c3s:Mean"])
+    wasAssociatedWith(uuid:8eb03a1c-8416-46ea-87e8-7fb8c94570ab, uuid:monthly_mean_instance01, uuid:monyhly_trend0001)
+    wasAssociatedWith(uuid:8eb03a1c-8416-46ea-87e8-8439501830bc, uuid:monthly_mean_instance01, uuid:monyhly_trend0001)
+    wasStartedBy(uuid:8eb03a1c-8416-46ea-87e8-7fb8c94570ab, http://orcid.org/0000-0002-3494-120X, -, 2019-06-07T16:51:58+01:00)
+    wasStartedBy(uuid:8eb03a1c-8416-46ea-87e8-8439501830bc, http://orcid.org/0000-0002-3494-120X, -, 2019-06-07T16:51:58+01:00)
+    actedOnBehalfOf(uuid:monthly_mean_instance01, uuid:C3SToolBox0001, -)
+    activity(uuid:8eb03a1c-8416-46ea-87e8-8439501830bc, 2019-06-07T17:01:58+01:00, 2019-06-07T17:20:58+01:00, [http://www.w3.org/ns/prov#type='http://purl.dataone.org/provone/2015/01/15/ontology#Execution'])
+    activity(uuid:8eb03a1c-8416-46ea-87e8-7fb8c94570ab, 2019-06-07T16:58:58+01:00, 2019-06-07T17:58:58+01:00, [http://www.w3.org/ns/prov#type='http://purl.dataone.org/provone/2015/01/15/ontology#Execution'])
+    wasGeneratedBy(uuid:0253fee2-bd2b-453c-992b-skfnatojao44, uuid:8eb03a1c-8416-46ea-87e8-8439501830bc, -)
+    wasGeneratedBy(uuid:0253fee2-bd2b-453c-992b-c5902094eb52, uuid:8eb03a1c-8416-46ea-87e8-7fb8c94570ab, -)
+    agent(http://orcid.org/0000-0002-3494-120X, [http://www.w3.org/ns/prov#type='http://www.w3.org/ns/prov#Person'])
+    agent(uuid:monthly_mean_instance01, [http://www.w3.org/ns/prov#type='s-prov:ComponentInstance', http://www.w3.org/ns/prov#generatedAt="2019-06-07T13:30:58Z", http://www.w3.org/ns/prov#atLocation='uuid:fc1dded5-b4a7-4df6-b1dc-2bbc6ccea852'])
+    agent(uuid:C3SToolBox0001, [http://www.w3.org/ns/prov#type='http://www.w3.org/ns/prov#SoftwareAgent', http://linktovoc.org/#version="v0.5"])
+    hadMember(uuid:monyhly_trend0001, uuid:05688edb-1f29-4001-8171-3afb0e6d701f)
+    hadMember(uuid:05688edb-1f29-4001-8171-3afb0e6d701f, uuid:numpy10)
+    hadMember(uuid:05688edb-1f29-4001-8171-3afb0e6d701f, uuid:xarray20)
+    entity(uuid:0253fee2-bd2b-453c-992b-skfnatojao44, [http://www.w3.org/ns/prov#type='http://purl.dataone.org/provone/2015/01/15/ontology#Data', http://www.w3.org/ns/prov#generatedAt="2019-06-07T15:58:58Z", http://www.w3.org/ns/prov#atLocation="https://cds.data/91991343"])
+    entity(uuid:91991554, [http://www.w3.org/ns/prov#type='http://purl.dataone.org/provone/2015/01/15/ontology#Data', http://www.w3.org/ns/prov#atLocation="https://cds.data/91991554"])
+    entity(uuid:0253fee2-bd2b-453c-992b-c5902094eb52, [http://www.w3.org/ns/prov#type='http://purl.dataone.org/provone/2015/01/15/ontology#Data', http://www.w3.org/ns/prov#generatedAt="2019-06-07T15:58:58Z", http://www.w3.org/ns/prov#atLocation="https://cds.data/91991343"])
+  endBundle
+endDocument

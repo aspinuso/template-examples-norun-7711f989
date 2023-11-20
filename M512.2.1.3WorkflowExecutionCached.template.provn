@@ -1,0 +1,48 @@
+document
+  prefix xml <http://www.w3.org/XML/1998/namespace>
+  prefix rdf <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+  prefix rdfs <http://www.w3.org/2000/01/rdf-schema#>
+  prefix uuid <urn:uuid:>
+  prefix s-prov <https://github.com/aspinuso/s-provenance/blob/master/resources/s-prov-o.owl>
+  prefix vargen <http://openprovenance.org/vargen#>
+  prefix ex <http://example.com/#>
+  prefix provone <http://purl.dataone.org/provone/2015/01/15/ontology#>
+  prefix c3s <http://linktovoc.org/#>
+  prefix tmpl <http://openprovenance.org/tmpl#>
+  prefix var <http://openprovenance.org/var#>
+  prefix vcard <http://www.w3.org/2006/vcard/ns#>
+  
+  bundle uuid:ToolboxWorkflowExecution
+    prefix xml <http://www.w3.org/XML/1998/namespace>
+    prefix rdf <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+    prefix rdfs <http://www.w3.org/2000/01/rdf-schema#>
+    prefix uuid <urn:uuid:>
+    prefix s-prov <https://github.com/aspinuso/s-provenance/blob/master/resources/s-prov-o.owl>
+    prefix vargen <http://openprovenance.org/vargen#>
+    prefix ex <http://example.com/#>
+    prefix provone <http://purl.dataone.org/provone/2015/01/15/ontology#>
+    prefix c3s <http://linktovoc.org/#>
+    prefix tmpl <http://openprovenance.org/tmpl#>
+    prefix var <http://openprovenance.org/var#>
+    prefix vcard <http://www.w3.org/2006/vcard/ns#>
+    
+    hadMember(vargen:WFExecutionInputs, var:parameter)
+    wasInformedBy(var:WFExecution, var:WFExecutionCached)
+    used(var:WFExecution, vargen:WFExecutionInputs, -)
+    wasGeneratedBy(vargen:output, var:WFExecutionCached, -)
+    used(var:WFExecutionCached, vargen:WFExecutionInputs, -)
+    agent(var:executionSoftware, [prov:type='prov:SoftwareAgent', c3s:version='var:version', prov:location='var:accessUrl', prov:label='var:label'])
+    entity(var:Workflow, [prov:type="provone:Workflow", prov:type='var:wftype', c3s:version='var:wfversion', c3s:code="var:code", prov:name="var:wfname", prov:location='var:accessUrlDocumentation'])
+    entity(vargen:WFExecutionInputs, [prov:type="s-prov:WFExecutionInputs", prov:type="prov:Collection"])
+    wasAssociatedWith(var:WFExecution, var:executionSoftware, var:Workflow)
+    wasStartedBy(var:WFExecutionCached, var:userCached, -, -, [tmpl:time='var:startedAtCached'])
+    agent(var:userCached, [prov:type='prov:Person', vcard:uid='var:nameCache'])
+    entity(vargen:output, [prov:type='provone:Data', prov:value='var:result'])
+    wasStartedBy(var:WFExecution, var:user, -, -, [tmpl:time='var:startedAt'])
+    agent(var:user, [prov:type='prov:Person', vcard:uid='var:name'])
+    activity(var:WFExecutionCached, -, -, [prov:type='provone:Execution', s-prov:runId="var:WFExecution", c3s:projectCached='var:projectCached', s-prov:description="var:e", tmpl:endTime='var:wfendCached', tmpl:startTime='var:wfstartCached'])
+    entity(var:parameter, [prov:type='c3s:WorkflowParameter', c3s:parvalue='var:parval', c3s:parkey='var:parkey'])
+    wasAssociatedWith(var:WFExecutionCached, var:executionSoftware, var:Workflow)
+    activity(var:WFExecution, -, -, [prov:type='provone:Execution', c3s:project='var:project', c3s:results_from_cache='var:results_from_cache', s-prov:description="var:e", tmpl:endTime='var:wfend', prov:location='vargen:systemprocess', tmpl:startTime='var:wfstart', s-prov:runId="var:WFExecution"])
+  endBundle
+endDocument

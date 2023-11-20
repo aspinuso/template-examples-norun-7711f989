@@ -1,0 +1,41 @@
+document
+  prefix vargen <http://openprovenance.org/vargen#>
+  prefix provone <http://purl.dataone.org/provone/2015/01/15/ontology#>
+  prefix s-prov <https://github.com/aspinuso/s-provenance/blob/master/resources/s-prov-o.owl>
+  prefix c3s <http://linktovoc.org/#>
+  prefix ex <http://example.com/#>
+  prefix vcard <http://www.w3.org/2006/vcard/ns#>
+  prefix var <http://openprovenance.org/var#>
+  prefix tmpl <http://openprovenance.org/tmpl#>
+  prefix uuid <urn:uuid:>
+  
+  bundle vargen:ToolExecution
+    prefix vargen <http://openprovenance.org/vargen#>
+    prefix provone <http://purl.dataone.org/provone/2015/01/15/ontology#>
+    prefix s-prov <https://github.com/aspinuso/s-provenance/blob/master/resources/s-prov-o.owl>
+    prefix c3s <http://linktovoc.org/#>
+    prefix vcard <http://www.w3.org/2006/vcard/ns#>
+    prefix var <http://openprovenance.org/var#>
+    prefix tmpl <http://openprovenance.org/tmpl#>
+    
+    entity(var:tool, [prov:atLocation='var:accessUrlDocumentation', c3s:version='var:version', prov:type='var:tooltype', prov:type='prov:Plan', prov:type='provone:Program'])
+    entity(var:parameter, [prov:type='c3s:ToolParameter', c3s:parvalue='var:parval', c3s:parkey='var:parkey'])
+    entity(vargen:output, [prov:generatedAt='var:generatedAt', prov:atLocation='var:accessUrlOut', prov:type='provone:Data'])
+    entity(var:lib, [c3s:version='var:libversion', prov:type='var:dependencyConcept', c3s:libname='var:libname'])
+    entity(vargen:systemprocess, [c3s:worker='var:worker', c3s:cresource='var:cresource', prov:type='s-prov:SystemProcess', c3s:pid='var:pid'])
+    entity(vargen:libs, [prov:type='c3s:LibCollection'])
+    entity(var:input, [prov:atLocation='var:accessUrlInp', prov:type='provone:Data', c3s:inputName='var:inputName'])
+    used(vargen:toolexec, var:input, -)
+    used(vargen:toolexec, var:parameter, -)
+    wasAssociatedWith(vargen:toolexec, var:toolbox, var:tool)
+    wasDerivedFrom(vargen:output, var:input, -, -, -, [prov:type='var:derivtype'])
+    wasStartedBy(vargen:toolexec, var:user, -, -, [tmpl:time='var:startedAt', var:parterm='var:termval'])
+    activity(vargen:toolexec, -, -, [prov:atLocation='vargen:systemprocess', tmpl:startTime='var:executionStartTime', prov:type='provone:Execution', tmpl:endTime='var:executionEndTime', provone:wasPartOf='var:WFexecution'])
+    agent(var:user, [vcard:uid='var:name', prov:type='prov:Person'])
+    agent(var:toolbox, [prov:atLocation='var:accessUrl', c3s:version='var:version', prov:type='prov:SoftwareAgent'])
+    wasGeneratedBy(vargen:output, vargen:toolexec, -)
+    hadMember(var:tool, vargen:libs)
+    hadMember(vargen:libs, var:lib)
+    entity(var:cresource, [s-prov:queue='var:queue', s-prov:mapping='var:mapping', s-prov:modules='var:modules', s-prov:resourceType='var:resourceType', s-prov:resourceName='var:resourceName', prov:type='s-prov:CResource', s-prov:resourceUrl='var:resourceUrl'])
+  endBundle
+endDocument

@@ -1,0 +1,43 @@
+document
+  prefix xml <http://www.w3.org/XML/1998/namespace>
+  prefix rdf <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+  prefix rdfs <http://www.w3.org/2000/01/rdf-schema#>
+  prefix uuid <urn:uuid:>
+  prefix s-prov <https://github.com/aspinuso/s-provenance/blob/master/resources/s-prov-o.owl>
+  prefix vargen <http://openprovenance.org/vargen#>
+  prefix ex <http://example.com/#>
+  prefix provone <http://purl.dataone.org/provone/2015/01/15/ontology#>
+  prefix c3s <http://linktovoc.org/#>
+  prefix tmpl <http://openprovenance.org/tmpl#>
+  prefix var <http://openprovenance.org/var#>
+  prefix vcard <http://www.w3.org/2006/vcard/ns#>
+  
+  bundle vargen:ToolExecution
+    prefix xml <http://www.w3.org/XML/1998/namespace>
+    prefix rdf <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+    prefix rdfs <http://www.w3.org/2000/01/rdf-schema#>
+    prefix uuid <urn:uuid:>
+    prefix s-prov <https://github.com/aspinuso/s-provenance/blob/master/resources/s-prov-o.owl>
+    prefix vargen <http://openprovenance.org/vargen#>
+    prefix ex <http://example.com/#>
+    prefix provone <http://purl.dataone.org/provone/2015/01/15/ontology#>
+    prefix c3s <http://linktovoc.org/#>
+    prefix tmpl <http://openprovenance.org/tmpl#>
+    prefix var <http://openprovenance.org/var#>
+    prefix vcard <http://www.w3.org/2006/vcard/ns#>
+    
+    used(var:toolreqid, var:parameter, -)
+    wasGeneratedBy(vargen:output, var:toolreqid, -)
+    used(var:toolreqid, var:input, -)
+    agent(var:user, [prov:type='prov:Person', vcard:uid='var:name'])
+    wasStartedBy(var:toolreqid, var:user, -, -, [tmpl:time='var:senttToTmqAt', var:parterm='var:termval'])
+    entity(vargen:output, [prov:type='provone:Data', c3s:contentLenght='var:contentLenghtOut', prov:value='var:value', prov:generatedAt='var:generatedAt', c3s:resultType='var:resultType', prov:location='var:accessUrlOut'])
+    agent(var:executionSoftware, [prov:type='var:label', prov:type='prov:SoftwareAgent', prov:location='var:accessUrl', c3s:version='var:version'])
+    wasAssociatedWith(var:toolreqid, var:executionSoftware, var:tool)
+    wasDerivedFrom(vargen:output, var:input, -, -, -, [prov:type='var:derivtype'])
+    activity(var:toolreqid, -, -, [prov:type='provone:Execution', tmpl:endTime='var:executionEndTime', c3s:method='var:method', provone:wasPartOf='var:WFexecution', tmpl:startTime='var:executionStartTime', c3s:state='var:state', c3s:results_from_cache='var:results_from_cache', prov:location='vargen:systemprocess'])
+    entity(var:parameter, [prov:type='c3s:ToolParameter', c3s:parvalue='var:parval', c3s:parkey='var:parkey'])
+    entity(var:tool, [prov:type='var:tooltype', prov:type='provone:Program', prov:type='prov:Plan', prov:location='var:accessUrlDocumentation', c3s:version='var:version'])
+    entity(var:input, [prov:type='provone:Data', prov:location='var:accessUrlInp', c3s:contentLength='var:contentLenghtIn', c3s:contentType='var:contentType'])
+  endBundle
+endDocument

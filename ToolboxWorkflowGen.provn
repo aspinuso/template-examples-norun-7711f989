@@ -1,0 +1,38 @@
+document
+  prefix vargen <http://openprovenance.org/vargen#>
+  prefix provone <http://purl.dataone.org/provone/2015/01/15/ontology#>
+  prefix s-prov <https://github.com/aspinuso/s-provenance/blob/master/resources/s-prov-o.owl>
+  prefix c3s <http://linktovoc.org/#>
+  prefix ex <http://example.com/#>
+  prefix vcard <http://www.w3.org/2006/vcard/ns#>
+  prefix var <http://openprovenance.org/var#>
+  prefix tmpl <http://openprovenance.org/tmpl#>
+  prefix uuid <urn:uuid:>
+  
+  bundle uuid:ToolboxWorkflowExecution
+    prefix vargen <http://openprovenance.org/vargen#>
+    prefix s-prov <https://github.com/aspinuso/s-provenance/blob/master/resources/s-prov-o.owl>
+    prefix c3s <http://linktovoc.org/#>
+    prefix vcard <http://www.w3.org/2006/vcard/ns#>
+    prefix var <http://openprovenance.org/var#>
+    prefix tmpl <http://openprovenance.org/tmpl#>
+    prefix uuid <urn:uuid:>
+    
+    entity(var:cresource, [s-prov:queue='var:queue', s-prov:mapping='var:mapping', s-prov:modules='var:modules', s-prov:resourceType='var:resourceType', s-prov:resourceName='var:resourceName', prov:type='s-prov:CResource', s-prov:resourceUrl='var:resourceUrl'])
+    entity(var:parameter, [prov:type='c3s:WorkflowParameter', c3s:parvalue='var:parval', c3s:parkey='var:parkey'])
+    entity(vargen:WFExecutionInputs, [prov:type="s-prov:WFExecutionInputs", prov:type="prov:Collection"])
+    entity(var:Workflow, [prov:atLocation='var:accessUrlDocumentation', c3s:sourcecode="var:sourcecode", c3s:version='var:wfversion', prov:name="var:wfname", prov:type="provone:Workflow", prov:type='var:wftype'])
+    entity(var:lib, [c3s:version='var:libversion', prov:type='var:dependencyConcept', c3s:libname='var:libname'])
+    entity(vargen:systemprocess, [c3s:worker='var:worker', c3s:cresource='var:cresource', c3s:pid='var:pid'])
+    entity(vargen:libs, [prov:type='c3s:LibCollection'])
+    used(var:WFExecution, vargen:WFExecutionInputs, -)
+    wasAssociatedWith(var:WFExecution, var:toolbox, var:Workflow)
+    wasStartedBy(var:WFExecution, var:user, -, -, [tmpl:time='var:startedAt', var:parterm='var:termval'])
+    activity(var:WFExecution, -, -, [prov:atLocation='vargen:systemprocess', tmpl:startTime='var:wfstart', s-prov:runId="var:WFExecution", s-prov:description="var:e", prov:type="s-prov:WFExecution"])
+    agent(var:user, [vcard:uid='var:name', prov:type='prov:Person'])
+    agent(var:toolbox, [prov:atLocation='var:accessUrl', c3s:version='var:version', prov:type='prov:SoftwareAgent'])
+    hadMember(vargen:WFExecutionInputs, var:parameter)
+    hadMember(vargen:libs, var:lib)
+    hadMember(var:Workflow, vargen:libs)
+  endBundle
+endDocument

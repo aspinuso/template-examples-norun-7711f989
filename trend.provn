@@ -1,0 +1,43 @@
+document
+  prefix vargen <http://openprovenance.org/vargen#>
+  prefix pre_0 <http://www.w3.org/2001/XMLSchema>
+  prefix c3s <http://linktovoc.org>
+  prefix provone <http://http://purl.dataone.org/provone/2015/01/15/ontology#>
+  prefix vcard <http://www.w3.org/2006/vcard/ns#>
+  prefix var <http://openprovenance.org/var#>
+  prefix tmpl <http://openprovenance.org/tmpl#>
+  prefix dcterms <http://purl.org/dc/terms/>
+  
+  bundle vargen:TrendToolExecution
+    prefix vargen <http://openprovenance.org/vargen#>
+    prefix provone <http://purl.dataone.org/provone/2015/01/15/ontology#>
+    prefix mc <http://www.metaclip.org/datasource/datasource.owl#>
+    prefix c3s <http://linktovoc.org>
+    prefix vcard <http://www.w3.org/2006/vcard/ns#>
+    prefix var <http://openprovenance.org/var#>
+    prefix tmpl <http://openprovenance.org/tmpl#>
+    prefix dcterms <http://purl.org/dc/terms/>
+    
+    entity(var:tool, [prov:atLocation='var:accessUrlDocumentation', prov:type='c3s:Trend', prov:type='provone:Program'])
+    entity(vargen:output1, [prov:generatedAt='var:generatedAt', prov:atLocation='var:accessUrlOut', prov:type='provone:Data', prov:type='c3s:intercept'])
+    entity(vargen:output2, [prov:generatedAt='var:generatedAt', prov:atLocation='var:accessUrlOut', prov:type='provone:Data', prov:type='c3s:slope'])
+    entity(vargen:output3, [prov:generatedAt='var:generatedAt', prov:atLocation='var:accessUrlOut', prov:type='provone:Data', prov:type='c3s:std-s'])
+    entity(var:lib, [c3s:version='var:libversion', prov:type='var:dependencyConcept', c3s:libname='var:libname'])
+    entity(var:input, [prov:atLocation='var:accessUrlInp', prov:type='provone:Data'])
+    entity(vargen:libs, [prov:type='c3s:LibCollection'])
+    used(vargen:toolexec, var:input, -)
+    wasDerivedFrom(vargen:output1, var:input, -, -, -, [c3s:slope_units='var:slope', prov:type='c3s:Trend', c3s:dim='var:dim'])
+    wasDerivedFrom(vargen:output3, var:input, -, -, -, [c3s:slope_units='var:slope', prov:type='c3s:Trend', c3s:dim='var:dim'])
+    wasDerivedFrom(vargen:output2, var:input, -, -, -, [c3s:slope_units='var:slope', prov:type='c3s:Trend', c3s:dim='var:dim'])
+    wasAssociatedWith(vargen:toolexec, var:toolbox, var:tool)
+    wasStartedBy(vargen:start; vargen:toolexec, var:user, -, -, [tmpl:time='var:startedAt', c3s:slope_units='var:slope', c3s:dim='var:dim'])
+    activity(vargen:toolexec, -, -, [tmpl:startTime='var:executionStartTime', prov:type='provone:Execution', tmpl:endTime='var:executionEndTime'])
+    wasGeneratedBy(vargen:output2, vargen:toolexec, -)
+    wasGeneratedBy(vargen:output1, vargen:toolexec, -)
+    wasGeneratedBy(vargen:output3, vargen:toolexec, -)
+    agent(var:user, [vcard:uid='var:name', prov:type='prov:Person'])
+    agent(var:toolbox, [prov:atLocation='var:accessUrl', c3s:version='var:version', prov:type='prov:SoftwareAgent'])
+    hadMember(var:tool, vargen:libs)
+    hadMember(vargen:libs, var:lib)
+  endBundle
+endDocument
